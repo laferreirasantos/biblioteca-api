@@ -7,6 +7,11 @@ import com.pge.biblioteca.application.EmprestimoApplicationService;
 import com.pge.biblioteca.domain.model.Emprestimo;
 import com.pge.biblioteca.domain.model.Livro;
 import com.pge.biblioteca.domain.model.Usuario;
+import com.pge.biblioteca.domain.service.EmprestimoService;
+import com.pge.biblioteca.infrastructure.persistence.EmprestimoRepository;
+import com.pge.biblioteca.infrastructure.persistence.LivroRepository;
+import com.pge.biblioteca.infrastructure.persistence.UsuarioRepository;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +35,23 @@ class EmprestimoControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private EmprestimoApplicationService emprestimoService;
+    private EmprestimoApplicationService emprestimoApplicationService;
+
+    @MockBean
+    private EmprestimoRepository emprestimoRepository;
+
+    @MockBean
+    private UsuarioRepository usuarioRepository;
+
+    @MockBean
+    private LivroRepository livroRepository;
+
+    @MockBean
+    private EmprestimoService emprestimoService;
 
     @Autowired
     private ObjectMapper objectMapper;
+
 
     @Test
     void deveRealizarEmprestimoComSucesso() throws Exception {
@@ -53,7 +71,7 @@ class EmprestimoControllerTest {
         Emprestimo emprestimo = new Emprestimo(usuario, List.of(livro1, livro2), dataInicio, dataPrevistaDevolucao);
         emprestimo.setId(100L);
 
-        Mockito.when(emprestimoService.realizarEmprestimo(eq(usuarioId), eq(livrosIds)))
+        Mockito.when(emprestimoApplicationService.realizarEmprestimo(eq(usuarioId), eq(livrosIds)))
             .thenReturn(emprestimo);
 
         EmprestimoRequest request = new EmprestimoRequest(usuarioId, livrosIds);

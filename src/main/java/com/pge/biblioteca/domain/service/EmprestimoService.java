@@ -21,7 +21,8 @@ public class EmprestimoService {
         this.emprestimoRepository = emprestimoRepository;
     }
 
-    public Emprestimo realizarEmprestimo(Usuario usuario, List<Livro> livros, LocalDate dataInicio) {
+
+	public Emprestimo realizarEmprestimo(Usuario usuario, List<Livro> livros, LocalDate dataInicio) {
         validarDisponibilidadeDosLivros(livros);
         validarLimiteDeEmprestimos(usuario);
 

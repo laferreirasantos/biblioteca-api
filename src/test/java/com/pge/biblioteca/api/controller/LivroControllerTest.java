@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pge.biblioteca.api.dto.LivroRequest;
 import com.pge.biblioteca.api.dto.LivroResponse;
 import com.pge.biblioteca.domain.service.LivroService;
+import com.pge.biblioteca.application.LivroApplicationService;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -28,13 +29,15 @@ class LivroControllerTest {
     @MockBean
     private LivroService livroService;
 
+    @MockBean
+    private LivroApplicationService livroApplicationService;
+
     @Autowired
     private ObjectMapper objectMapper;
 
     @Test
     void deveCadastrarLivroComSucesso() throws Exception {
         LivroRequest request = new LivroRequest("Clean Code", "Robert Martin", "123456789", 10);
-
         LivroResponse response = new LivroResponse(1L, "Clean Code", "Robert Martin", "123456789", 10);
 
         Mockito.when(livroService.cadastrar(any(LivroRequest.class))).thenReturn(response);
@@ -62,5 +65,19 @@ class LivroControllerTest {
             .andExpect(jsonPath("$.length()").value(2))
             .andExpect(jsonPath("$[0].titulo").value("Clean Code"))
             .andExpect(jsonPath("$[1].titulo").value("Effective Java"));
+    }
+
+    @Test
+    void deveListarApenasLivrosDisponiveis() throws Exception {
+        List<LivroResponse> disponiveis = List.of(
+                new LivroResponse(1L, "Clean Code", "Robert Martin", "123456789", 10)
+        );
+
+        Mockito.when(livroApplicationService.listarLivrosDisponiveis()).thenReturn(disponiveis);
+
+        mockMvc.perform(get("/api/livros/disponiveis"))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.length()").value(1))
+            .andExpect(jsonPath("$[0].titulo").value("Clean Code"));
     }
 }
