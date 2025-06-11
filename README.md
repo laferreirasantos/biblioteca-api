@@ -60,7 +60,7 @@ com.pge.biblioteca
 
 1. Clonar o Repositório
 
-git clone https://github.com/seu-usuario/biblioteca-api.git
+git clone https://github.com/laferreirasantos/biblioteca-api.git
 cd biblioteca-api
 
 2. Subir o Banco de Dados com Docker
@@ -132,7 +132,7 @@ Controllers
 
 Desenvolvido por Larissa, desenvolvedora backend com foco em Java, Spring Boot, PostgreSQL e APIs REST.
 
-GitHub | LinkedIn
+[LinkedIn](https://www.linkedin.com/in/larissa-dos-santos/)
 
 ✨ Sugestões de Melhorias Futuras
 
