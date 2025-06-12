@@ -3,6 +3,8 @@ package com.pge.biblioteca.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.pge.biblioteca.security.model.Role;
+
 import jakarta.persistence.*;
 
 
@@ -25,6 +27,14 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Emprestimo> emprestimos = new ArrayList<>();
+    
+    @Column(nullable = false)
+    private String senha;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
 
     // Construtor padrão exigido pelo JPA
     public Usuario() {
@@ -77,6 +87,22 @@ public class Usuario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
 	

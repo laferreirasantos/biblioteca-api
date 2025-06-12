@@ -20,3 +20,12 @@ server:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    
+jwt:
+  secret: MinhaChaveSecretaJWT12345678901234567890
+  expiration: 86400000  # 1 dia em milissegundos
+  
+
+  
+  
+
